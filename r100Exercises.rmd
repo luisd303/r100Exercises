@@ -1,0 +1,782 @@
+---
+output: pdf_document
+---
+# 100 R Vector and Matrix Exercises
+
+This is the R Version of [100 numpy exercises](http://www.loria.fr/%7Erougier/teaching/numpy.100/)
+
+###### Install and load package Magrittr (1 Star)
+
+```{r}
+# install.packages("magrittr")
+library(magrittr)
+```
+
+###### Print the R version (1 Star)
+
+```{r}
+print(version$version.string)
+```
+
+###### Create a null vector of size 10 (1 Star)
+
+```{r}
+rep(NA, 10) %>% print
+```
+
+###### How to get the examples of the add (+) function from the command line ? (1 Star)
+
+```{r}
+example(`+`)
+```
+
+###### Create a null vector of size 10 but the fifth value which is 1 (1 Star)
+
+```{r}
+z <- rep(NA, 10)
+z[5] <- 1
+print(z)
+```
+
+###### Create a vector with values ranging from 10 to 49 (1 Star)
+
+```{r}
+10:49 %>% print
+```
+
+###### Reverse a vector (first element becomes last) (1 Star)
+
+```{r}
+1:10 %>% rev %>% print
+```
+
+###### Create a 3x3 matrix with values ranging from 0 to 8 (1 Star)
+
+```{r}
+matrix(0:8, ncol = 3, nrow = 3) %>% print
+```
+
+###### Find indices of non-zero elements from (1,2,0,0,4,0) (1 Star)
+
+```{r}
+c(1,2,0,0,4,0) %>% as.logical %>% which %>% print
+```
+
+###### Create a 3x3 identity matrix (1 Star)
+
+```{r}
+diag(3) %>% print
+```
+
+###### Create a 3x3x3 array with random values (1 Star)
+
+```{r}
+runif(3^3) %>% array(c(3, 3, 3)) %>% print
+```
+
+###### Create a 10x10 array with random values and find the minimum and maximum values (1 Star)
+
+```{r}
+z <- array(runif(10^2), c(10,10))
+min(z) %>% print
+max(z) %>% print
+```
+
+###### Create a random vector of size 30 and find the mean value (1 Star)
+
+```{r}
+runif(30) %>% mean %>% print
+```
+
+###### Create a 2d array with 1 on the border and 0 inside (1 Star)
+
+```{r}
+z <- array(1, c(4, 5))
+z[2:(nrow(z) - 1), 2:(ncol(z) - 1)] <- 0
+print(z)
+```
+
+###### What is the result of the following expression ? (1 Star)
+
+```{r}
+0 * NaN
+NA == NA
+NA == NaN
+Inf > NA
+NaN - NaN
+0.3 == 3 * 0.1
+```
+
+###### Create a 5x5 matrix with values 1,2,3,4 just below the diagonal (1 Star)
+
+```{r}
+z <- diag(0, ncol = 5, nrow = 5)
+z[row(z) - 1 == col(z)] <- 1:4
+print(z)
+```
+
+###### Create a 8x8 matrix and fill it with a checkerboard pattern (1 Star)
+
+```{r}
+z <- array(0, c(8, 8)) 
+z[1:nrow(z) %% 2 != 0, 1:ncol(z) %% 2 == 0] <- 1
+z[1:nrow(z) %% 2 == 0, 1:ncol(z) %% 2 != 0] <- 1
+print(z)
+```
+
+###### Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element ?
+
+```{r}
+
+```
+
+
+```{r, eval=FALSE, include=FALSE}
+    print(np.unravel_index(100,(6,7,8)))
+
+    Create a checkerboard 8x8 matrix using the tile function (1 Star)
+
+      odd <- rep(0:1, 4)
+evn <- rep(1:0, 4)
+z <- array(c(odd, evn), c(8, 8))
+
+
+    Z = np.tile( np.array([[0,1],[1,0]]), (4,4))
+    print(Z)
+
+    Normalize a 5x5 random matrix (1 Star)
+
+    Z = np.random.random((5,5))
+    Zmax, Zmin = Z.max(), Z.min()
+    Z = (Z - Zmin)/(Zmax - Zmin)
+    print(Z)
+
+    Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (1 Star)
+
+    Z = np.dot(np.ones((5,3)), np.ones((3,2)))
+    print(Z)
+
+    Given a 1D array, negate all elements which are between 3 and 8, in place. (1 Star)
+
+    # Author: Evgeni Burovski
+
+    Z = np.arange(11)
+    Z[(3 < Z) & (Z <= 8)] *= -1
+
+    Create a 5x5 matrix with row values ranging from 0 to 4 (2 Stars)
+
+    Z = np.zeros((5,5))
+    Z += np.arange(5)
+    print(Z)
+
+    Consider a generator function that generates 10 integers and use it to build an array (1 Star)
+
+    def generate():
+        for x in xrange(10):
+            yield x
+    Z = np.fromiter(generate(),dtype=float,count=-1)
+    print(Z)
+
+    Create a vector of size 10 with values ranging from 0 to 1, both excluded (2 Stars)
+
+    Z = np.linspace(0,1,12,endpoint=True)[1:-1]
+    print(Z)
+
+    Create a random vector of size 10 and sort it (2 Stars)
+
+    Z = np.random.random(10)
+    Z.sort()
+    print(Z)
+
+    How to sum a small array faster than np.sum ? (2 Stars)
+
+    # Author: Evgeni Burovski
+
+    Z = np.arange(10)
+    np.add.reduce(Z)
+
+    Consider two random array A anb B, check if they are equal (2 Stars)
+
+    A = np.random.randint(0,2,5)
+    B = np.random.randint(0,2,5)
+    equal = np.allclose(A,B)
+    print(equal)
+
+    Make an array immutable (read-only) (2 Stars)
+
+    Z = np.zeros(10)
+    Z.flags.writeable = False
+    Z[0] = 1
+
+    Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (2 Stars)
+
+    Z = np.random.random((10,2))
+    X,Y = Z[:,0], Z[:,1]
+    R = np.sqrt(X**2+Y**2)
+    T = np.arctan2(Y,X)
+    print(R)
+    print(T)
+
+    Create random vector of size 10 and replace the maximum value by 0 (2 Stars)
+
+    Z = np.random.random(10)
+    Z[Z.argmax()] = 0
+    print(Z)
+
+    Create a structured array with x and y coordinates covering the [0,1]x[0,1] area (2 Stars)
+
+    Z = np.zeros((10,10), [('x',float),('y',float)])
+    Z['x'], Z['y'] = np.meshgrid(np.linspace(0,1,10),
+                                 np.linspace(0,1,10))
+    print(Z)
+
+    Given two arrays, X and Y, construct the Cauchy matrix C (Cij = 1/(xi - yj))
+
+    # Author: Evgeni Burovski
+
+    X = np.arange(8)
+    Y = X + 0.5
+    C = 1.0 / np.subtract.outer(X, Y)
+    print(np.linalg.det(C))
+
+    Print the minimum and maximum representable value for each numpy scalar type (2 Stars)
+
+    for dtype in [np.int8, np.int32, np.int64]:
+       print(np.iinfo(dtype).min)
+       print(np.iinfo(dtype).max)
+    for dtype in [np.float32, np.float64]:
+       print(np.finfo(dtype).min)
+       print(np.finfo(dtype).max)
+       print(np.finfo(dtype).eps)
+
+    How to print all the values of an array ? (2 Stars)
+
+    np.set_printoptions(threshold=np.nan)
+    Z = np.zeros((25,25))
+    print(Z)
+
+    How to find the closest value (to a given scalar) in an array ? (2 Stars)
+
+    Z = np.arange(100)
+    v = np.random.uniform(0,100)
+    index = (np.abs(Z-v)).argmin()
+    print(Z[index])
+
+    Create a structured array representing a position (x,y) and a color (r,g,b) (2 Stars)
+
+     Z = np.zeros(10, [ ('position', [ ('x', float, 1),
+                                       ('y', float, 1)]),
+                        ('color',    [ ('r', float, 1),
+                                       ('g', float, 1),
+                                       ('b', float, 1)])])
+    print(Z)
+
+    Consider a random vector with shape (100,2) representing coordinates, find point by point distances (2 Stars)
+
+    Z = np.random.random((10,2))
+    X,Y = np.atleast_2d(Z[:,0]), np.atleast_2d(Z[:,1])
+    D = np.sqrt( (X-X.T)**2 + (Y-Y.T)**2)
+    print(D)
+
+    # Much faster with scipy
+    import scipy
+    # Thanks Gavin Heverly-Coulson (#issue 1)
+    import scipy.spatial
+
+    Z = np.random.random((10,2))
+    D = scipy.spatial.distance.cdist(Z,Z)
+    print(D)
+
+    How to convert a float (32 bits) array into an integer (32 bits) in place ?
+
+    Z = np.arange(10, dtype=np.int32)
+    Z = Z.astype(np.float32, copy=False)
+
+    Consider the following file:
+
+    1,2,3,4,5
+    6,,,7,8
+    ,,9,10,11
+
+    How to read it ? (2 Stars)
+
+    Z = np.genfromtxt("missing.dat", delimiter=",")
+
+    What is the equivalent of enumerate for numpy arrays ? (2 Stars)
+
+    Z = np.arange(9).reshape(3,3)
+    for index, value in np.ndenumerate(Z):
+        print(index, value)
+    for index in np.ndindex(Z.shape):
+        print(index, Z[index])
+
+    Generate a generic 2D Gaussian-like array (2 Stars)
+
+    X, Y = np.meshgrid(np.linspace(-1,1,10), np.linspace(-1,1,10))
+    D = np.sqrt(X*X+Y*Y)
+    sigma, mu = 1.0, 0.0
+    G = np.exp(-( (D-mu)**2 / ( 2.0 * sigma**2 ) ) )
+    print(G)
+
+    How to randomly place p elements in a 2D array ? (2 Stars)
+
+    # Author: Divakar
+
+    n = 10
+    p = 3
+    Z = np.zeros((n,n))
+    np.put(Z, np.random.choice(range(n*n), p, replace=False),1)
+
+    Subtract the mean of each row of a matrix (2 Stars)
+
+    # Author: Warren Weckesser
+
+    X = np.random.rand(5, 10)
+
+    # Recent versions of numpy
+    Y = X - X.mean(axis=1, keepdims=True)
+
+    # Older versions of numpy
+    Y = X - X.mean(axis=1).reshape(-1, 1)
+
+    How to I sort an array by the nth column ? (2 Stars)
+
+    # Author: Steve Tjoa
+
+    Z = np.random.randint(0,10,(3,3))
+    print(Z)
+    print(Z[Z[:,1].argsort()])
+
+    How to tell if a given 2D array has null columns ? (2 Stars)
+
+    # Author: Warren Weckesser
+
+    Z = np.random.randint(0,3,(3,10))
+    print((~Z.any(axis=0)).any())
+
+    Find the nearest value from a given value in an array (2 Stars)
+
+    Z = np.random.uniform(0,1,10)
+    z = 0.5
+    m = Z.flat[np.abs(Z - z).argmin()]
+    print(m)
+
+    Consider a given vector, how to add 1 to each element indexed by a second vector (be careful with repeated indices) ? (3 Stars)
+
+    # Author: Brett Olsen
+
+    Z = np.ones(10)
+    I = np.random.randint(0,len(Z),20)
+    Z += np.bincount(I, minlength=len(Z))
+    print(Z)
+
+    How to accumulate elements of a vector (X) to an array (F) based on an index list (I) ? (3 Stars)
+
+    # Author: Alan G Isaac
+
+    X = [1,2,3,4,5,6]
+    I = [1,3,9,3,4,1]
+    F = np.bincount(I,X)
+    print(F)
+
+    Considering a (w,h,3) image of (dtype=ubyte), compute the number of unique colors (3 Stars)
+
+    # Author: Nadav Horesh
+
+    w,h = 16,16
+    I = np.random.randint(0,2,(h,w,3)).astype(np.ubyte)
+    F = I[...,0]*256*256 + I[...,1]*256 +I[...,2]
+    n = len(np.unique(F))
+    print(np.unique(I))
+
+    Considering a four dimensions array, how to get sum over the last two axis at once ? (3 Stars)
+
+    A = np.random.randint(0,10,(3,4,3,4))
+    sum = A.reshape(A.shape[:-2] + (-1,)).sum(axis=-1)
+    print(sum)
+
+    Considering a one-dimensional vector D, how to compute means of subsets of D using a vector S of same size describing subset indices ? (3 Stars)
+
+    # Author: Jaime Fern?ndez del R?o
+
+    D = np.random.uniform(0,1,100)
+    S = np.random.randint(0,10,100)
+    D_sums = np.bincount(S, weights=D)
+    D_counts = np.bincount(S)
+    D_means = D_sums / D_counts
+    print(D_means)
+
+    How to get the diagonal of a dot product ? (3 Stars)
+
+    # Author: Mathieu Blondel
+
+    # Slow version
+    np.diag(np.dot(A, B))
+
+    # Fast version
+    np.sum(A * B.T, axis=1)
+
+    # Faster version
+    np.einsum("ij,ji->i", A, B).
+
+    Consider the vector [1, 2, 3, 4, 5], how to build a new vector with 3 consecutive zeros interleaved between each value ? (3 Stars)
+
+    # Author: Warren Weckesser
+
+    Z = np.array([1,2,3,4,5])
+    nz = 3
+    Z0 = np.zeros(len(Z) + (len(Z)-1)*(nz))
+    Z0[::nz+1] = Z
+    print(Z0)
+
+    Consider an array of dimension (5,5,3), how to mulitply it by an array with dimensions (5,5) ? (3 Stars)
+
+    A = np.ones((5,5,3))
+    B = 2*np.ones((5,5))
+    print(A * B[:,:,None])
+
+    How to swap two rows of an array ? (3 Stars)
+
+    # Author: Eelco Hoogendoorn
+
+    A = np.arange(25).reshape(5,5)
+    A[[0,1]] = A[[1,0]]
+    print(A)
+
+    Consider a set of 10 triplets describing 10 triangles (with shared vertices), find the set of unique line segments composing all the triangles (3 Stars)
+
+    # Author: Nicolas P. Rougier
+
+    faces = np.random.randint(0,100,(10,3))
+    F = np.roll(faces.repeat(2,axis=1),-1,axis=1)
+    F = F.reshape(len(F)*3,2)
+    F = np.sort(F,axis=1)
+    G = F.view( dtype=[('p0',F.dtype),('p1',F.dtype)] )
+    G = np.unique(G)
+    print(G)
+
+    Given an array C that is a bincount, how to produce an array A such that np.bincount(A) == C ? (3 Stars)
+
+    # Author: Jaime Fern?ndez del R?o
+
+    C = np.bincount([1,1,2,3,4,4,6])
+    A = np.repeat(np.arange(len(C)), C)
+    print(A)
+
+    How to compute averages using a sliding window over an array ? (3 Stars)
+
+    # Author: Jaime Fern?ndez del R?o
+
+    def moving_average(a, n=3) :
+        ret = np.cumsum(a, dtype=float)
+        ret[n:] = ret[n:] - ret[:-n]
+        return ret[n - 1:] / n
+    Z = np.arange(20)
+    print(moving_average(Z, n=3))
+
+    Consider a one-dimensional array Z, build a two-dimensional array whose first row is (Z[0],Z[1],Z[2]) and each subsequent row is shifted by 1 (last row should be (Z[-3],Z[-2],Z[-1]) (3 Stars)
+
+    # Author: Joe Kington / Erik Rigtorp
+    from numpy.lib import stride_tricks
+
+    def rolling(a, window):
+        shape = (a.size - window + 1, window)
+        strides = (a.itemsize, a.itemsize)
+        return stride_tricks.as_strided(a, shape=shape, strides=strides)
+    Z = rolling(np.arange(10), 3)
+    print(Z)
+
+    How to negate a boolean, or to change the sign of a float inplace ? (3 Stars)
+
+    # Author: Nathaniel J. Smith
+
+    Z = np.random.randint(0,2,100)
+    np.logical_not(arr, out=arr)
+
+    Z = np.random.uniform(-1.0,1.0,100)
+    np.negative(arr, out=arr)
+
+    Consider 2 sets of points P0,P1 describing lines (2d) and a point p, how to compute distance from p to each line i (P0[i],P1[i]) ? (3 Stars)
+
+    def distance(P0, P1, p):
+        T = P1 - P0
+        L = (T**2).sum(axis=1)
+        U = -((P0[:,0]-p[...,0])*T[:,0] + (P0[:,1]-p[...,1])*T[:,1]) / L
+        U = U.reshape(len(U),1)
+        D = P0 + U*T - p
+        return np.sqrt((D**2).sum(axis=1))
+
+    P0 = np.random.uniform(-10,10,(10,2))
+    P1 = np.random.uniform(-10,10,(10,2))
+    p  = np.random.uniform(-10,10,( 1,2))
+    print(distance(P0, P1, p))
+
+    Consider 2 sets of points P0,P1 describing lines (2d) and a set of points P, how to compute distance from each point j (P[j]) to each line i (P0[i],P1[i]) ? (3 Stars)
+
+    # Author: Italmassov Kuanysh
+    # based on distance function from previous question
+    P0 = np.random.uniform(-10, 10, (10,2))
+    P1 = np.random.uniform(-10,10,(10,2))
+    p = np.random.uniform(-10, 10, (10,2))
+    print np.array([distance(P0,P1,p_i) for p_i in p])
+
+    Consider an arbitrary array, write a function that extract a subpart with a fixed shape and centered on a given element (pad with a fill value when necessary) (3 Stars)
+
+    # Author: Nicolas Rougier
+
+    Z = np.random.randint(0,10,(10,10))
+    shape = (5,5)
+    fill  = 0
+    position = (1,1)
+
+    R = np.ones(shape, dtype=Z.dtype)*fill
+    P  = np.array(list(position)).astype(int)
+    Rs = np.array(list(R.shape)).astype(int)
+    Zs = np.array(list(Z.shape)).astype(int)
+
+    R_start = np.zeros((len(shape),)).astype(int)
+    R_stop  = np.array(list(shape)).astype(int)
+    Z_start = (P-Rs//2)
+    Z_stop  = (P+Rs//2)+Rs%2
+
+    R_start = (R_start - np.minimum(Z_start,0)).tolist()
+    Z_start = (np.maximum(Z_start,0)).tolist()
+    R_stop = np.maximum(R_start, (R_stop - np.maximum(Z_stop-Zs,0))).tolist()
+    Z_stop = (np.minimum(Z_stop,Zs)).tolist()
+
+    r = [slice(start,stop) for start,stop in zip(R_start,R_stop)]
+    z = [slice(start,stop) for start,stop in zip(Z_start,Z_stop)]
+    R[r] = Z[z]
+    print(Z)
+    print(R)
+
+    Consider an array Z = [1,2,3,4,5,6,7,8,9,10,11,12,13,14], how to generate an array R = [[1,2,3,4], [2,3,4,5], [3,4,5,6], ..., [11,12,13,14]] ? (3 Stars)
+
+    # Author: Stefan van der Walt
+
+    Z = np.arange(1,15,dtype=uint32)
+    R = stride_tricks.as_strided(Z,(11,4),(4,4))
+    print(R)
+
+    Compute a matrix rank (3 Stars)
+
+    # Author: Stefan van der Walt
+
+    Z = np.random.uniform(0,1,(10,10))
+    U, S, V = np.linalg.svd(Z) # Singular Value Decomposition
+    rank = np.sum(S > 1e-10)
+
+    How to find the most frequent value in an array ?
+
+    Z = np.random.randint(0,10,50)
+    print(np.bincount(Z).argmax())
+
+    Extract all the contiguous 3x3 blocks from a random 10x10 matrix (3 Stars)
+
+    # Author: Chris Barker
+
+    Z = np.random.randint(0,5,(10,10))
+    n = 3
+    i = 1 + (Z.shape[0]-3)
+    j = 1 + (Z.shape[1]-3)
+    C = stride_tricks.as_strided(Z, shape=(i, j, n, n), strides=Z.strides + Z.strides)
+    print(C)
+
+    Create a 2D array subclass such that Z[i,j] == Z[j,i] (3 Stars)
+
+    # Author: Eric O. Lebigot
+    # Note: only works for 2d array and value setting using indices
+
+    class Symetric(np.ndarray):
+        def __setitem__(self, (i,j), value):
+            super(Symetric, self).__setitem__((i,j), value)
+            super(Symetric, self).__setitem__((j,i), value)
+
+    def symetric(Z):
+        return np.asarray(Z + Z.T - np.diag(Z.diagonal())).view(Symetric)
+
+    S = symetric(np.random.randint(0,10,(5,5)))
+    S[2,3] = 42
+    print(S)
+
+    Consider a set of p matrices wich shape (n,n) and a set of p vectors with shape (n,1). How to compute the sum of of the p matrix products at once ? (result has shape (n,1)) (3 Stars)
+
+    # Author: Stefan van der Walt
+
+    p, n = 10, 20
+    M = np.ones((p,n,n))
+    V = np.ones((p,n,1))
+    S = np.tensordot(M, V, axes=[[0, 2], [0, 1]])
+    print(S)
+
+    # It works, because:
+    # M is (p,n,n)
+    # V is (p,n,1)
+    # Thus, summing over the paired axes 0 and 0 (of M and V independently),
+    # and 2 and 1, to remain with a (n,1) vector.
+
+    Consider a 16x16 array, how to get the block-sum (block size is 4x4) ? (3 Stars)
+
+    # Author: Robert Kern
+
+    Z = np.ones(16,16)
+    k = 4
+    S = np.add.reduceat(np.add.reduceat(Z, np.arange(0, Z.shape[0], k), axis=0),
+                                           np.arange(0, Z.shape[1], k), axis=1)
+
+    How to implement the Game of Life using numpy arrays ? (3 Stars)
+
+    # Author: Nicolas Rougier
+
+    def iterate(Z):
+        # Count neighbours
+        N = (Z[0:-2,0:-2] + Z[0:-2,1:-1] + Z[0:-2,2:] +
+             Z[1:-1,0:-2]                + Z[1:-1,2:] +
+             Z[2:  ,0:-2] + Z[2:  ,1:-1] + Z[2:  ,2:])
+
+        # Apply rules
+        birth = (N==3) & (Z[1:-1,1:-1]==0)
+        survive = ((N==2) | (N==3)) & (Z[1:-1,1:-1]==1)
+        Z[...] = 0
+        Z[1:-1,1:-1][birth | survive] = 1
+        return Z
+
+    Z = np.random.randint(0,2,(50,50))
+    for i in range(100): Z = iterate(Z)
+
+    How to get the n largest values of an array (3 Stars)
+
+    Z = np.arange(10000)
+    np.random.shuffle(Z)
+    n = 5
+
+    # Slow
+    print (Z[np.argsort(Z)[-n:]])
+
+    # Fast
+    print (Z[np.argpartition(-Z,n)[:n]])
+
+    Given an arbitrary number of vectors, build the cartesian product (every combinations of every item) (3 Stars)
+
+    # Author: Stefan Van der Walt
+
+    def cartesian(arrays):
+        arrays = [np.asarray(a) for a in arrays]
+        shape = (len(x) for x in arrays)
+
+        ix = np.indices(shape, dtype=int)
+        ix = ix.reshape(len(arrays), -1).T
+
+        for n, arr in enumerate(arrays):
+            ix[:, n] = arrays[n][ix[:, n]]
+
+        return ix
+
+    print (cartesian(([1, 2, 3], [4, 5], [6, 7])))
+
+    How to create a record array from a regular array ? (3 Stars)
+
+    Z = np.array([("Hello", 2.5, 3),
+                  ("World", 3.6, 2)])
+    R = np.core.records.fromarrays(Z.T,
+                                   names='col1, col2, col3',
+                                   formats = 'S8, f8, i8')
+
+    Comsider a large vector Z, compute Z to the power of 3 using 3 different methods (3 Stars)
+
+    Author: Ryan G.
+
+    x = np.random.rand(5e7)
+
+    %timeit np.power(x,3)
+    1 loops, best of 3: 574 ms per loop
+
+    %timeit x*x*x
+    1 loops, best of 3: 429 ms per loop
+
+    %timeit np.einsum('i,i,i->i',x,x,x)
+    1 loops, best of 3: 244 ms per loop
+
+    Consider two arrays A and B of shape (8,3) and (2,2). How to find rows of A that contain elements of each row of B regardless of the order of the elements in B ? (3 Stars)
+
+    # Author: Gabe Schwartz
+
+    A = np.random.randint(0,5,(8,3))
+    B = np.random.randint(0,5,(2,2))
+
+    C = (A[..., np.newaxis, np.newaxis] == B)
+    rows = (C.sum(axis=(1,2,3)) >= B.shape[1]).nonzero()[0]
+    print(rows)
+
+    Considering a 10x3 matrix, extract rows with unequal values (e.g. [2,2,3]) (3 Stars)
+
+    # Author: Robert Kern
+
+    Z = np.random.randint(0,5,(10,3))
+    E = np.logical_and.reduce(Z[:,1:] == Z[:,:-1], axis=1)
+    U = Z[~E]
+    print(Z)
+    print(U)
+
+    Convert a vector of ints into a matrix binary representation (3 Stars)
+
+    # Author: Warren Weckesser
+
+    I = np.array([0, 1, 2, 3, 15, 16, 32, 64, 128])
+    B = ((I.reshape(-1,1) & (2**np.arange(8))) != 0).astype(int)
+    print(B[:,::-1])
+
+    # Author: Daniel T. McDonald
+
+    I = np.array([0, 1, 2, 3, 15, 16, 32, 64, 128], dtype=np.uint8)
+    print(np.unpackbits(I[:, np.newaxis], axis=1))
+
+    Given a two dimensional array, how to extract unique rows ? (3 Stars)
+
+    # Author: Jaime Fern?ndez del R?o
+
+    Z = np.random.randint(0,2,(6,3))
+    T = np.ascontiguousarray(Z).view(np.dtype((np.void, Z.dtype.itemsize * Z.shape[1])))
+    _, idx = np.unique(T, return_index=True)
+    uZ = Z[idx]
+    print(uZ)
+
+    Considering 2 vectors A & B, write the einsum equivalent of inner, outer, sum, and mul function (3 Stars)
+
+    # Author: Alex Riley
+    # Make sure to read: http://ajcr.net/Basic-guide-to-einsum/
+
+    np.einsum('i->', A)       # np.sum(A)
+    np.einsum('i,i->i', A, B) # A * B
+    np.einsum('i,i', A, B)    # np.inner(A, B)
+    np.einsum('i,j', A, B)    # np.outer(A, B)
+
+    Considering a path described by two vectors (X,Y), how to sample it using equidistant samples (3 Stars) ?
+
+    # Author: Bas Swinckels
+
+    phi = np.arange(0, 10*np.pi, 0.1)
+    a = 1
+    x = a*phi*np.cos(phi)
+    y = a*phi*np.sin(phi)
+
+    dr = (np.diff(x)**2 + np.diff(y)**2)**.5 # segment lengths
+    r = np.zeros_like(x)
+    r[1:] = np.cumsum(dr)                # integrate path
+    r_int = np.linspace(0, r.max(), 200) # regular spaced path
+    x_int = np.interp(r_int, r, x)       # integrate path
+    y_int = np.interp(r_int, r, y)
+
+    Given an integer n and a 2D array X, select from X the rows which can be interpreted as draws from a multinomial distribution with n degrees, i.e., the rows which only contain integers and which sum to n. (3 Stars)
+
+    # Author: Evgeni Burovski
+
+    X = np.asarray([[1.0, 0.0, 3.0, 8.0],
+                    [2.0, 0.0, 1.0, 1.0],
+                    [1.5, 2.5, 1.0, 0.0]])
+    n = 4
+    M = np.logical_and.reduce(np.mod(X, 1) == 0, axis=-1)
+    M &= (X.sum(axis=-1) == n)
+    print(X[M])
+
+```
