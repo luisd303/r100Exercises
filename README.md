@@ -53,7 +53,7 @@ print(z)
 matrix(0:8, ncol = 3, nrow = 3) %>% print
 ```
 
-##### Find indices of non-zero elements from [1,2,0,0,4,0] (1 Star)
+##### Find indices of non-zero elements from (1,2,0,0,4,0) (1 Star)
 
 ```{r}
 c(1,2,0,0,4,0) %>% as.logical %>% which %>% print
