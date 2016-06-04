@@ -127,73 +127,79 @@ print(z)
 ###### Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element ?
 
 ```{r}
+z <- array(runif(6 * 7 * 8), c(6, 7, 8)) 
+which(z == z[100], arr.ind = T)
+```
 
+###### Create a checkerboard 8x8 matrix using the rep function (1 Star)
+
+```{r}
+odd <- rep(0:1, 4)
+evn <- rep(1:0, 4)
+z <- array(c(odd, evn), c(8, 8))
+print(z)
+```
+
+###### Normalize a 5x5 random matrix (1 Star)
+
+```{r}
+runif(25, 1, 20) %>% matrix(nrow = 5, ncol = 5) %T>% print %>% scale %>% print
+```
+
+###### Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (1 Star)
+
+```{r}
+matrix(1, 5, 3) %*% matrix(1, 3, 2) %>% print
+```
+
+###### Given a 1D array, negate all elements which are between 3 and 8, in place. (1 Star)
+
+```{r}
+z <- 1:15 
+ifelse(z > 3 & z <= 8, -z, z) %>% print
+```
+
+###### Create a 5x5 matrix with row values ranging from 0 to 4 (1 Star)
+
+```{r}
+matrix(0:4, 5, 5)
+```
+
+##### Generate 5 vectors and use them to build a matrix (2 Stars)
+
+```{r}
+vecs <- paste0("vec", 1:5)
+
+for (i in 1:5){
+  assign(vecs[i], runif(5, 0, 10))
+}
+
+sapply(vecs, get)
+```
+
+##### Create a vector of size 10 with values ranging from 0 to 1, both excluded (2 Stars)
+
+```{r}
+z <- seq(0, 1, length.out = 12)
+z[c(-1, -length(z))] %>% print
+```
+
+##### Create a random vector of size 10 and sort it (2 Stars)
+
+```{r}
+runif(10, 0, 10) %>% sort %>% print
+```
+
+##### How to sum a small array without sum ? (2 Stars)
+
+```{r}
+1:10 %>% {Reduce(`+`, .)}
 ```
 
 
 ```{r, eval=FALSE, include=FALSE}
-    print(np.unravel_index(100,(6,7,8)))
-
-    Create a checkerboard 8x8 matrix using the tile function (1 Star)
-
-      odd <- rep(0:1, 4)
-evn <- rep(1:0, 4)
-z <- array(c(odd, evn), c(8, 8))
 
 
-    Z = np.tile( np.array([[0,1],[1,0]]), (4,4))
-    print(Z)
-
-    Normalize a 5x5 random matrix (1 Star)
-
-    Z = np.random.random((5,5))
-    Zmax, Zmin = Z.max(), Z.min()
-    Z = (Z - Zmin)/(Zmax - Zmin)
-    print(Z)
-
-    Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (1 Star)
-
-    Z = np.dot(np.ones((5,3)), np.ones((3,2)))
-    print(Z)
-
-    Given a 1D array, negate all elements which are between 3 and 8, in place. (1 Star)
-
-    # Author: Evgeni Burovski
-
-    Z = np.arange(11)
-    Z[(3 < Z) & (Z <= 8)] *= -1
-
-    Create a 5x5 matrix with row values ranging from 0 to 4 (2 Stars)
-
-    Z = np.zeros((5,5))
-    Z += np.arange(5)
-    print(Z)
-
-    Consider a generator function that generates 10 integers and use it to build an array (1 Star)
-
-    def generate():
-        for x in xrange(10):
-            yield x
-    Z = np.fromiter(generate(),dtype=float,count=-1)
-    print(Z)
-
-    Create a vector of size 10 with values ranging from 0 to 1, both excluded (2 Stars)
-
-    Z = np.linspace(0,1,12,endpoint=True)[1:-1]
-    print(Z)
-
-    Create a random vector of size 10 and sort it (2 Stars)
-
-    Z = np.random.random(10)
-    Z.sort()
-    print(Z)
-
-    How to sum a small array faster than np.sum ? (2 Stars)
-
-    # Author: Evgeni Burovski
-
-    Z = np.arange(10)
-    np.add.reduce(Z)
 
     Consider two random array A anb B, check if they are equal (2 Stars)
 
