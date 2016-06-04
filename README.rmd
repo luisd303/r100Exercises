@@ -5,10 +5,15 @@ output: pdf_document
 
 This is the R Version of [100 numpy exercises](http://www.loria.fr/%7Erougier/teaching/numpy.100/)
 
-###### Install and load package Magrittr (1 Star)
+###### Install package Magrittr (1 Star)
+
+```{r, eval=FALSE, include=FALSE}
+install.packages("magrittr")
+```
+
+###### Load package Magrittr (1 Star)
 
 ```{r}
-# install.packages("magrittr")
 library(magrittr)
 ```
 
@@ -143,7 +148,7 @@ print(z)
 ###### Normalize a 5x5 random matrix (1 Star)
 
 ```{r}
-runif(25, 1, 20) %>% matrix(nrow = 5, ncol = 5) %T>% print %>% scale %>% print
+runif(5 * 5) %>% matrix(nrow = 5, ncol = 5) %>% scale %>% print
 ```
 
 ###### Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (1 Star)
@@ -165,69 +170,74 @@ ifelse(z > 3 & z <= 8, -z, z) %>% print
 matrix(0:4, 5, 5)
 ```
 
-##### Generate 5 vectors and use them to build a matrix (2 Stars)
+###### Generate 5 vectors and use them to build a matrix (2 Stars)
 
 ```{r}
 vecs <- paste0("vec", 1:5)
 
 for (i in 1:5){
-  assign(vecs[i], runif(5, 0, 10))
+  assign(vecs[i], runif(5))
 }
 
 sapply(vecs, get)
 ```
 
-##### Create a vector of size 10 with values ranging from 0 to 1, both excluded (2 Stars)
+###### Create a vector of size 10 with values ranging from 0 to 1, both excluded (2 Stars)
 
 ```{r}
 z <- seq(0, 1, length.out = 12)
 z[c(-1, -length(z))] %>% print
 ```
 
-##### Create a random vector of size 10 and sort it (2 Stars)
+###### Create a random vector of size 10 and sort it (2 Stars)
 
 ```{r}
-runif(10, 0, 10) %>% sort %>% print
+runif(10) %>% sort %>% print
 ```
 
-##### How to sum a small array without sum ? (2 Stars)
+###### How to sum a small array faster without sum ? (2 Stars)
 
 ```{r}
-1:10 %>% {Reduce(`+`, .)}
+1:10 %>% {Reduce(`+`, .)} %>% print
+```
+
+###### Consider two random array A anb B, check if they are equal (2 Stars)
+
+```{r}
+a <- replicate(5, runif(5)) %>% as.array
+b <- replicate(5, runif(5)) %>% as.array
+all(a == b) %>% print
+```
+
+###### Make an array immutable (read-only) (2 Stars)
+
+```{r}
+z <- array(runif(3), c(3, 4))
+lockBinding("z", env = .GlobalEnv)
+try(z <- array(runif(3), c(3, 4))) %>% print
+unlockBinding("z", env = .GlobalEnv)
+```
+
+###### Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (2 Stars)
+
+```{r}
+z <- replicate(2, runif(10, min = 0, max = 360))
+x <- z[,1]
+y <- z[,2]
+r = sqrt(x^2 + y^2) %>% print
+t = atan2(y, x) %>% print
+```
+
+###### Create random vector of size 10 and replace the maximum value by 0 (2 Stars)
+
+```{r}
+z <- runif(10)
+z[max(z) == z] <- 0
+print(z)
 ```
 
 
 ```{r, eval=FALSE, include=FALSE}
-
-
-
-    Consider two random array A anb B, check if they are equal (2 Stars)
-
-    A = np.random.randint(0,2,5)
-    B = np.random.randint(0,2,5)
-    equal = np.allclose(A,B)
-    print(equal)
-
-    Make an array immutable (read-only) (2 Stars)
-
-    Z = np.zeros(10)
-    Z.flags.writeable = False
-    Z[0] = 1
-
-    Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (2 Stars)
-
-    Z = np.random.random((10,2))
-    X,Y = Z[:,0], Z[:,1]
-    R = np.sqrt(X**2+Y**2)
-    T = np.arctan2(Y,X)
-    print(R)
-    print(T)
-
-    Create random vector of size 10 and replace the maximum value by 0 (2 Stars)
-
-    Z = np.random.random(10)
-    Z[Z.argmax()] = 0
-    print(Z)
 
     Create a structured array with x and y coordinates covering the [0,1]x[0,1] area (2 Stars)
 
