@@ -154,7 +154,7 @@ runif(5 * 5) %>% matrix(nrow = 5, ncol = 5) %>% scale %>% print
 ###### Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (1 Star)
 
 ```{r}
-matrix(1, 5, 3) %*% matrix(1, 3, 2) %>% print
+matrix(data = 1, nrow = 5, ncol = 3) %*% matrix(1, 3, 2) %>% print
 ```
 
 ###### Given a 1D array, negate all elements which are between 3 and 8, in place. (1 Star)
@@ -221,7 +221,7 @@ unlockBinding("z", env = .GlobalEnv)
 ###### Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (2 Stars)
 
 ```{r}
-z <- replicate(2, runif(10, min = 0, max = 360))
+z <- replicate(2, runif(10))
 x <- z[,1]
 y <- z[,2]
 r = sqrt(x^2 + y^2) %>% print
@@ -236,25 +236,25 @@ z[max(z) == z] <- 0
 print(z)
 ```
 
+###### Create a structured array with x and y coordinates covering the [0,1]x[0,1] area (2 Stars)
+
+```{r}
+z <- array(NA, dim = c(10,10))
+
+x <- seq(0, 1, length.out = 10)
+outer(x, x, FUN = paste, sep = ", ")
+```
+
+###### Given two arrays, X and Y, construct the Cauchy matrix C (Cij = 1/(xi - yj))
+
+```{r}
+x <- 1:8
+y <- x + 0.5
+cmt <- 1.0 / outer(x, y, FUN = "-") 
+print(det(cmt))
+```
 
 ```{r, eval=FALSE, include=FALSE}
-
-    Create a structured array with x and y coordinates covering the [0,1]x[0,1] area (2 Stars)
-
-    Z = np.zeros((10,10), [('x',float),('y',float)])
-    Z['x'], Z['y'] = np.meshgrid(np.linspace(0,1,10),
-                                 np.linspace(0,1,10))
-    print(Z)
-
-    Given two arrays, X and Y, construct the Cauchy matrix C (Cij = 1/(xi - yj))
-
-    # Author: Evgeni Burovski
-
-    X = np.arange(8)
-    Y = X + 0.5
-    C = 1.0 / np.subtract.outer(X, Y)
-    print(np.linalg.det(C))
-
     Print the minimum and maximum representable value for each numpy scalar type (2 Stars)
 
     for dtype in [np.int8, np.int32, np.int64]:
